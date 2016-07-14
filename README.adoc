@@ -1,3 +1,11 @@
 = Java EE actuator
 
 This is a web application that showcases exposing resources such as CPU and heap memory usage as a RESTful resource
+
+== Running the sample app:
+
+. Download and extract http://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.0.1/apache-tomee-7.0.1-plume.zip[Apache TomEE 7.0.1 Plume]
+. Build the project and deploy the war by copying it from the target directory to $TOMEE_HOME/webapps
+. Configure the JMX server by running this command in the console: `set CATALINA_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=11223 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false`
+. Start TomEE application server in the same console
+. Connect to `http://localhost:8080/actuator/resources/metrics`
