@@ -23,6 +23,7 @@ public class Metrics {
 	public Response getResourceUsage() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
         jsonObjectBuilder.add("heapMemoryUsage", usageBean.getHeapMemoryUsageInMB());
+		jsonObjectBuilder.add("usedProcessCPU", usageBean.getProcessCPU());
 		return Response.ok(jsonObjectBuilder.build()).build();
 	}
 }

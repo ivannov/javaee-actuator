@@ -3,13 +3,12 @@ package io.github.ivannov.actuator.jmx;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.enterprise.context.ApplicationScoped;
-import javax.management.*;
+import javax.management.ObjectName;
 import javax.management.openmbean.CompositeData;
 import javax.management.remote.JMXConnector;
 import javax.management.remote.JMXConnectorFactory;
 import javax.management.remote.JMXServiceURL;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.util.HashMap;
 
 /**
@@ -36,10 +35,22 @@ public class UsageBean {
 
     public String getHeapMemoryUsageInMB() {
         try {
-            Object o = jmxConnector.getMBeanServerConnection().getAttribute(new ObjectName("java.lang:type=Memory"), "HeapMemoryUsage");
-            CompositeData cd = (CompositeData) o;
+            CompositeData cd = (CompositeData) getAttributeValue("java.lang:type=Memory", "HeapMemoryUsage");
             Long usedInMB = ((Long) cd.get("used")) / 1024 / 1024;
-            return usedInMB.toString() + "MB";
+            return usedInMB.toString() + " MB";
+        } catch (Exception e) {
+            return "Holly smokes";
+        }
+    }
+
+    private Object getAttributeValue(String objectName, String attributeName) throws Exception {
+        return jmxConnector.getMBeanServerConnection().getAttribute(new ObjectName(objectName), attributeName);
+    }
+
+    public String getProcessCPU() {
+        try {
+            double cpuUsage = (double) getAttributeValue("java.lang:type=OperatingSystem", "ProcessCpuLoad");
+            return ((int) (cpuUsage * 100)) + " %";
         } catch (Exception e) {
             return "Holly smokes";
         }
