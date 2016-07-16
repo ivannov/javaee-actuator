@@ -1,6 +1,6 @@
-package io.microprofile.actuator.resources;
+package io.github.ivannov.actuator.resources;
 
-import io.microprofile.actuator.jmx.UsageBean;
+import io.github.ivannov.actuator.jmx.UsageBean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

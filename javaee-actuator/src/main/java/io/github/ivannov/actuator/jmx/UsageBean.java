@@ -1,4 +1,4 @@
-package io.microprofile.actuator.jmx;
+package io.github.ivannov.actuator.jmx;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -19,15 +19,14 @@ import java.util.HashMap;
 public class UsageBean {
 
     private static final String JMX_HOST = "127.0.0.1";
-    private static final String JMX_PORT = "11223";
 
     private JMXConnector jmxConnector;
 
     @PostConstruct
     public void initializeJMXConnector() {
         try {
-            System.out.println("I'm here");
-            JMXServiceURL jmxServiceURL = new JMXServiceURL("rmi", "", 0, "/jndi/rmi://" + JMX_HOST + ":" + JMX_PORT + "/jmxrmi");
+            String managementPort = System.getProperty("com.sun.management.jmxremote.port");
+            JMXServiceURL jmxServiceURL = new JMXServiceURL("rmi", "", 0, "/jndi/rmi://" + JMX_HOST + ":" + managementPort + "/jmxrmi");
             jmxConnector = JMXConnectorFactory.newJMXConnector(jmxServiceURL, new HashMap<>());
             jmxConnector.connect();
         } catch (IOException e) {
