@@ -40,7 +40,7 @@ public class UsageBean {
             CompositeData cd = (CompositeData) o;
             Long usedInMB = ((Long) cd.get("used")) / 1024 / 1024;
             return usedInMB.toString() + "MB";
-        } catch (MBeanException | AttributeNotFoundException | InstanceNotFoundException | ReflectionException | IOException | MalformedObjectNameException e) {
+        } catch (Exception e) {
             return "Holly smokes";
         }
     }

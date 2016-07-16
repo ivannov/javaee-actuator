@@ -3,11 +3,8 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>io.github.ivannov</groupId>
-    <artifactId>javaee-actuator</artifactId>
+    <artifactId>actuator</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <build>
-        <finalName>actuator</finalName>
-    </build>
     <dependencies>
         <dependency>
             <groupId>javax</groupId>
