@@ -1,8 +1,8 @@
-package io.microprofile.actuator.config;
+package io.github.ivannov.actuator.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
 
-@ApplicationPath("resources")
+@ApplicationPath("actuator")
 public class RestConfig extends Application {
 }

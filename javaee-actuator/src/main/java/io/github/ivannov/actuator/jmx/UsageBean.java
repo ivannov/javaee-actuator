@@ -1,4 +1,4 @@
-package io.microprofile.actuator.jmx;
+package io.github.ivannov.actuator.jmx;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
@@ -26,7 +26,6 @@ public class UsageBean {
     @PostConstruct
     public void initializeJMXConnector() {
         try {
-            System.out.println("I'm here");
             JMXServiceURL jmxServiceURL = new JMXServiceURL("rmi", "", 0, "/jndi/rmi://" + JMX_HOST + ":" + JMX_PORT + "/jmxrmi");
             jmxConnector = JMXConnectorFactory.newJMXConnector(jmxServiceURL, new HashMap<>());
             jmxConnector.connect();
