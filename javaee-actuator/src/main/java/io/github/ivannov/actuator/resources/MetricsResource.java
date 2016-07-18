@@ -1,6 +1,6 @@
 package io.github.ivannov.actuator.resources;
 
-import io.github.ivannov.actuator.inspectors.UsageBean;
+import io.github.ivannov.actuator.inspectors.JmxInspector;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -17,20 +17,20 @@ import java.util.Map;
 public class MetricsResource {
 
     @Inject
-    private UsageBean usageBean;
+    private JmxInspector jmxInspector;
 
 	@GET
 	@Produces("application/json")
 	public Response getResourceUsage() {
         JsonObjectBuilder jsonObjectBuilder = Json.createObjectBuilder();
-        jsonObjectBuilder.add("cpu", usageBean.getProcessCPU());
-        Map<String, Long> heapMemory = usageBean.getHeapMemory();
+        jsonObjectBuilder.add("cpu", jmxInspector.getProcessCPU());
+        Map<String, Long> heapMemory = jmxInspector.getHeapMemory();
         heapMemory.entrySet().forEach(entry -> jsonObjectBuilder.add("heap." + entry.getKey(), entry.getValue()));
-        Map<String, Integer> threadInfo = usageBean.getThreadsInfo();
+        Map<String, Integer> threadInfo = jmxInspector.getThreadsInfo();
         threadInfo.entrySet().forEach(entry -> jsonObjectBuilder.add(entry.getKey(), entry.getValue()));
-        Map<String, Long> loadedClassesInfo = usageBean.getLoadedClassesInfo();
+        Map<String, Long> loadedClassesInfo = jmxInspector.getLoadedClassesInfo();
         loadedClassesInfo.entrySet().forEach(entry -> jsonObjectBuilder.add(entry.getKey(), entry.getValue()));
-        Map<String, Long> gcInfo = usageBean.getGCInfo();
+        Map<String, Long> gcInfo = jmxInspector.getGCInfo();
         gcInfo.entrySet().forEach(entry -> jsonObjectBuilder.add("gc." + entry.getKey(), entry.getValue()));
         return Response.ok(jsonObjectBuilder.build()).build();
 	}

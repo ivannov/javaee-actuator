@@ -16,7 +16,7 @@ import java.util.Map;
  * @author Ivan St. Ivanov.
  */
 @ApplicationScoped
-public class UsageBean {
+public class JmxInspector {
 
     private static final String JMX_HOST = "127.0.0.1";
 
