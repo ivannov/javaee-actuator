@@ -4,10 +4,9 @@ This is a web application that showcases exposing resources such as CPU and heap
 
 == Running the sample app:
 
-1. Download and extract http://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.0.1/apache-tomee-7.0.1-plume.zip[Apache TomEE 7.0.1 Plume]
-2. Build the javaee-actuator project
-3. Then build the javaee-actuator-showcase and deploy the war by copying it from the target directory to $TOMEE_HOME/webapps
-4. Configure the JMX server by running this command in the console.
+* Download and extract http://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.0.1/apache-tomee-7.0.1-plume.zip[Apache TomEE 7.0.1 Plume]
+* Build this project
+* Configure the JMX server by running this command in the console.
 
 [source,bash]
 ----
@@ -18,5 +17,6 @@ set CATALINA_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.
 export CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=11223 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
 ----
 
-5. Start TomEE application server in the same console
-6. Connect to `http://localhost:8080/actuator/actuator/metrics`
+* Start TomEE application server in the same console
+* Deploy the war from the `javaee-actuator-showcase/target` directory
+* Connect to `http://localhost:8080/actuator/actuator/metrics`
