@@ -1,6 +1,6 @@
 package io.github.ivannov.actuator.resources;
 
-import io.github.ivannov.actuator.jmx.UsageBean;
+import io.github.ivannov.actuator.inspectors.UsageBean;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;

@@ -11,5 +11,4 @@ target/
 .forge_settings
 .factorypath
 .externalToolBuilders
-rebuild.sh
 

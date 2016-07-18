@@ -1,4 +1,4 @@
-package io.github.ivannov.actuator.jmx;
+package io.github.ivannov.actuator.inspectors;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
