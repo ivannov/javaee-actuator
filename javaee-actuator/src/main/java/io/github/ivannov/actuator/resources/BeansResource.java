@@ -11,8 +11,8 @@ import javax.json.JsonObjectBuilder;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Response;
-import java.util.Set;
 
 /**
  * @author Ivan St. Ivanov.
@@ -26,22 +26,27 @@ public class BeansResource {
 
     @GET
     @Produces("application/json")
-    public Response getBeans() {
-        JsonObjectBuilder rootObjectBuilder = Json.createObjectBuilder();
+    public Response getBeans(@QueryParam("package") String filterPackage) {
         JsonArrayBuilder beansArrayBuilder = Json.createArrayBuilder();
+        beansInspector.getBeans().stream()
+                                .filter(bean -> letBeanIn(filterPackage, bean))
+                                .map(this::jsonifyBean)
+                                .forEach(beansArrayBuilder::add);        ;
+        JsonObjectBuilder rootJson = Json.createObjectBuilder().add("beans", beansArrayBuilder);
+        return Response.ok(rootJson.build()).build();
+    }
 
-        Set<Bean<?>> beans = beansInspector.getBeans();
+    private boolean letBeanIn(String filterPackage, Bean<?> bean) {
+        return filterPackage == null || bean.getBeanClass().getCanonicalName().startsWith(filterPackage);
+    }
 
-        for (Bean<?> bean : beans) {
-            JsonObjectBuilder beanJson = Json.createObjectBuilder();
-            beanJson.add("class", bean.getBeanClass().getCanonicalName());
-            beanJson.add("scope", bean.getScope().getSimpleName());
-            JsonArrayBuilder dependenciesArrayBuilder = Json.createArrayBuilder();
-            bean.getInjectionPoints().forEach(injectionPoint -> dependenciesArrayBuilder.add(injectionPoint.getMember().getName()));
-            beanJson.add("dependencies", dependenciesArrayBuilder);
-            beansArrayBuilder.add(beanJson);
-        }
-        rootObjectBuilder.add("beans", beansArrayBuilder);
-        return Response.ok(rootObjectBuilder.build()).build();
+    private JsonObjectBuilder jsonifyBean(Bean<?> bean) {
+        JsonObjectBuilder beanJson = Json.createObjectBuilder();
+        beanJson.add("class", bean.getBeanClass().getCanonicalName());
+        beanJson.add("scope", bean.getScope().getSimpleName());
+        JsonArrayBuilder dependenciesArrayBuilder = Json.createArrayBuilder();
+        bean.getInjectionPoints().forEach(injectionPoint -> dependenciesArrayBuilder.add(injectionPoint.getMember().getName()));
+        beanJson.add("dependencies", dependenciesArrayBuilder);
+        return beanJson;
     }
 }

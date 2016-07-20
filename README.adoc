@@ -35,10 +35,19 @@ export CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxrem
 
 == Available endpoints
 
-[width="80%",options="header"]
+[options="header"]
 |=======================================================================
-| Endpoint | Description
-| /metrics | Provides useful metrics such as CPU, Heap Memory usage, etc.
-| /beans   | Lists the CDI beans loaded by the `BeanManager`
+| Endpoint                             | Description
+
+| `/metrics`                           |
+Provides useful metrics such as CPU, Heap Memory usage, etc.
+
+| `/beans`                             |
+Lists the CDI beans loaded by the `BeanManager`
+
+| `/beans?package=<some-package-name>` |
+Shows only beans that belong to the given package.
+Usefull when you want to filter out beans that come with the server and
+show only the ones coming with the application.
 |=======================================================================
 
