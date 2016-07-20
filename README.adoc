@@ -1,8 +1,13 @@
 = Java EE actuator
 
-This is a web application that showcases exposing resources such as CPU and heap memory usage as a RESTful resource
+This is a library and a web application that showcases exposing resources such as CPU, heap memory usage, CDI beans, etc. as a RESTful resource.
+It is inspired by https://spring.io/guides/gs/actuator-service/[Spring Boot Actuator].
 
-== Running the sample app:
+== Running the showcase app
+
+You can either deploy the showcase web application into TomEE 7.0.1 server, or you can run it directly using the TomEE Maven plugin
+
+=== Deployment in TomEE server
 
 * Download and extract http://repo.maven.apache.org/maven2/org/apache/tomee/apache-tomee/7.0.1/apache-tomee-7.0.1-plume.zip[Apache TomEE 7.0.1 Plume]
 * Build this project
@@ -19,4 +24,21 @@ export CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxrem
 
 * Start TomEE application server in the same console
 * Deploy the war from the `javaee-actuator-showcase/target` directory
-* Connect to `http://localhost:8080/actuator/actuator/metrics`
+* The different endpoints should be available at `http://localhost:8080/actuator/actuator`
+
+=== Running with the TomEE Maven plugin
+
+* Build this project
+* Change to the javaee-actuator-showcase directory
+* Execute `mvn tomee:run`
+* The different endpoints should be available at `http://localhost:8080/actuator/actuator`
+
+== Available endpoints
+
+[width="80%",options="header"]
+|=======================================================================
+| Endpoint | Description
+| /metrics | Provides useful metrics such as CPU, Heap Memory usage, etc.
+| /beans   | Lists the CDI beans loaded by the `BeanManager`
+|=======================================================================
+

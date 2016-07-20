@@ -19,18 +19,16 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
-            <!-- uncomment this when version 7.0 is available
             <plugin>
-                <groupId>org.apache.openejb.maven</groupId>
+                <groupId>org.apache.tomee.maven</groupId>
                 <artifactId>tomee-maven-plugin</artifactId>
-                <version>1.7.4</version>
+                <version>7.0.1</version>
                 <configuration>
-                    <tomeeVersion>1.7.4</tomeeVersion>
+                    <tomeeVersion>7.0.1</tomeeVersion>
                     <tomeeClassifier>plume</tomeeClassifier>
                     <args>-Dcom.sun.management.jmxremote.port=11223 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false</args>
                 </configuration>
             </plugin>
-            -->
         </plugins>
     </build>
     <packaging>war</packaging>
