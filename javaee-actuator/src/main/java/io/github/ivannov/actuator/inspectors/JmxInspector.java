@@ -66,20 +66,34 @@ public class JmxInspector {
         return heapMemory;
     }
 
-    public Map<String, Integer> getThreadsInfo() {
-        Map<String, Integer> threadsInfo = new HashMap<>();
+    public Map<String, Integer> getThreadDetails() {
+        Map<String, Integer> threadDetails = new HashMap<>();
         try {
             ThreadMXBean threadsMXBean = ManagementFactory.newPlatformMXBeanProxy(
                     remoteConnection,
                     ManagementFactory.THREAD_MXBEAN_NAME,
                     ThreadMXBean.class);
-            threadsInfo.put("threads", threadsMXBean.getThreadCount());
-            threadsInfo.put("threads.peak", threadsMXBean.getPeakThreadCount());
-            threadsInfo.put("threads.daemon", threadsMXBean.getDaemonThreadCount());
+            threadDetails.put("threads", threadsMXBean.getThreadCount());
+            threadDetails.put("threads.peak", threadsMXBean.getPeakThreadCount());
+            threadDetails.put("threads.daemon", threadsMXBean.getDaemonThreadCount());
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return threadsInfo;
+        return threadDetails;
+    }
+
+    public ThreadInfo[] getThreadInfo() {
+        ThreadInfo[] info = new ThreadInfo[0];
+        try {
+            ThreadMXBean threadsMXBean = ManagementFactory.newPlatformMXBeanProxy(
+                    remoteConnection,
+                    ManagementFactory.THREAD_MXBEAN_NAME,
+                    ThreadMXBean.class);
+            info = threadsMXBean.getThreadInfo(threadsMXBean.getAllThreadIds());
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+        return info;
     }
 
     public Map<String, Long> getLoadedClassesInfo() {

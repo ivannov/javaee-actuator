@@ -26,7 +26,7 @@ public class MetricsResource {
         jsonObjectBuilder.add("cpu", jmxInspector.getProcessCPU());
         Map<String, Long> heapMemory = jmxInspector.getHeapMemory();
         heapMemory.entrySet().forEach(entry -> jsonObjectBuilder.add("heap." + entry.getKey(), entry.getValue()));
-        Map<String, Integer> threadInfo = jmxInspector.getThreadsInfo();
+        Map<String, Integer> threadInfo = jmxInspector.getThreadDetails();
         threadInfo.entrySet().forEach(entry -> jsonObjectBuilder.add(entry.getKey(), entry.getValue()));
         Map<String, Long> loadedClassesInfo = jmxInspector.getLoadedClassesInfo();
         loadedClassesInfo.entrySet().forEach(entry -> jsonObjectBuilder.add(entry.getKey(), entry.getValue()));
