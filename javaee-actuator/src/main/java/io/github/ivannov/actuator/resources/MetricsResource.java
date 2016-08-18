@@ -6,10 +6,10 @@ import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.json.Json;
 import javax.json.JsonObjectBuilder;
-import javax.ws.rs.Path;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.GET;
+import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import java.util.Map;
 
 @Path("/metrics")
