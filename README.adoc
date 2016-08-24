@@ -24,18 +24,29 @@ export CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxrem
 
 * Start TomEE application server in the same console
 * Deploy the war from the `javaee-actuator-showcase/target` directory
-* The different endpoints should be available at `http://localhost:8080/actuator/actuator`
+* The actuator endpoints should be available at `http://localhost:8080/actuator/actuator`
 
 === Running with the TomEE Maven plugin
 
 * Build this project
 * Change to the javaee-actuator-showcase directory
+* Configure the JMX server by running this command in the console.
+
+[source,bash]
+----
+# For Windows
+set CATALINA_OPTS=-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=11223 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false
+
+# For Linux
+export CATALINA_OPTS="-Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=11223 -Dcom.sun.management.jmxremote.authenticate=false -Dcom.sun.management.jmxremote.ssl=false"
+----
+
 * Execute `mvn tomee:run`
-* The different endpoints should be available at `http://localhost:8080/actuator/actuator`
+* The actuator endpoints should be available at `http://localhost:8080/actuator/actuator`
 
 == Available endpoints
 
-[options="header"]
+[options="header", cols="1,1"]
 |=======================================================================
 | Endpoint                             | Description
 
@@ -49,5 +60,8 @@ Lists the CDI beans loaded by the `BeanManager`
 Shows only beans that belong to the given package.
 Usefull when you want to filter out beans that come with the server and
 show only the ones coming with the application.
+
+| `/dump`                              |
+Dumps the running threads of the application
 |=======================================================================
 
